@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect 
 
 # Create your views here.
 
-def blog(request):
-    pass
+def blog_home(request):
+    return render(request, "blog/blog-home.html")
+
+def blog_single(request):
+    return render(request, "blog/blog-single.html")

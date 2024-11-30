@@ -10,3 +10,7 @@ def about(request):
 
 def contact(request):
     return render(request, 'website/contact.html')
+
+def testview(request):
+    context = {'name':'taha','family':'efa'}
+    return render(request, 'website/test.html',context)
