@@ -6,5 +6,6 @@ app_name = 'blog' #This is for specifying our routes when we call them inside te
 urlpatterns = [
     path("", blog_home , name="blog-home"),
     path("single/", blog_single , name="blog-single"),
+    path('test/',test,name='test')
    
 ]

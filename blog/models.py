@@ -13,6 +13,13 @@ class Post(models.Model):
     published_date = models.DateTimeField(null=True)
     created_date = models.DateTimeField(auto_now_add=True) # -> save time when i create it
     updated_date = models.DateTimeField(auto_now=True) # -> save time when i update
+    
+    class Meta: # Meta classes do some action -> read more when needed https://docs.djangoproject.com/en/5.1/ref/models/options/
+       ordering = ['-created_date'] # This works in our project too but if just do it in our admin section it dosent effect our data's Its general
+       #verbos_name for change name to persian
+       #verbos_name_plural for change group to a group name
 
     def __str__(self):
         return self.title
+    
+    

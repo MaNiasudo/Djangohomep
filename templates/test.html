@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dtest</title>
+  </head>
+  <body>
+    {% for post in posts %}
+    <td>
+      <li><h2>{{post.id}} -</h2></li>
+      <li><h1>{{post.title}}</h1></li>
+      <li>{{post.content}}</li>
+      <li><small>{{post.published_date}}</small></li>
+    </td>
+    {% endfor %}
+  </body>
+</html>

@@ -4,6 +4,9 @@ from home.models import *
 
 
 class ContactAdmin(admin.ModelAdmin):
-    pass
+    empty_value_display = "-empty-" 
+    list_display = ["name", "email","subject","created_date"] # display this like a table row
+    list_filter = ["email"] # make a filter list to chose from
+    date_hierarchy = "created_date"
 
-admin.site.register(Contact, ContactAdmin)
+admin.site.register(Contact, ContactAdmin)# If dont add the ContactAdmin class here we not gonna see it on the admin page
