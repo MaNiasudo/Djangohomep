@@ -9,7 +9,7 @@
       </div>
       <div class="details">
         <!-- prettier-ignore -->
-        <a href="blog-single.html"><h6>{{post.title}}</h6></a>
+        <a href="{% url 'blog:single' post.id %}"><h6>{{post.title}}</h6></a>
         <p>{{post.published_date|date:"d Y M"}}</p>
       </div>
     </div>
