@@ -1,10 +1,22 @@
 from django.shortcuts import render , redirect , get_object_or_404
 from blog.models import Post
+from django.core.paginator import Paginator , EmptyPage , PageNotAnInteger
 
-# Create your views here.
-
-def blog_home(request):
+def blog_home(request,cat_name=None,author_username=None):
     posts = Post.objects.filter(status=1)
+    if cat_name:
+        posts = posts.filter(category__name=cat_name) # We can have 2 path in same func and use and if to call each 
+    if author_username:
+        posts = posts.filter(author__username=author_username) # and if we wanted to have more arguments we just add more  the author relating to our User Model
+    posts = Paginator(posts,3)
+    try:
+        page_number = request.GET.get('page')
+        posts = posts.get_page(page_number)
+    except PageNotAnInteger:
+        posts = posts.get_page(1)
+    except EmptyPage:
+        posts = posts.get_page(1)
+
     context = {'posts':posts}
     return render(request, "blog/blog-home.html",context)
 
@@ -12,10 +24,12 @@ def blog_single(request,pid):
     post = get_object_or_404(Post,id=pid,status=1)# with status = 1 users can only access to published posts  
     context = {'post':post}
     return render(request, "blog/blog-single.html", context)
-
-def blog_category(request,cat_name):
+ 
+def blog_search(request):
     posts = Post.objects.filter(status=1)
-    posts = posts.filter(category__name=cat_name) # we cant use single category here becvasue it look at id's and if we want to check name we need use category__name or any other variable we need
+    if request.method == 'GET':
+        if s :=  request.GET.get('s'):
+            posts= posts.filter(content__contains=s)
     context = {'posts':posts}
     return render(request, "blog/blog-home.html",context)
 
@@ -29,9 +43,4 @@ def blog_category(request,cat_name):
 
 
 
-def test(request): #we can use pid to take only a single paramether out for example 1 post for display instead of taking everything out
-   # posts = get_object_or_404(Post,id=pid,status=1) # Query to data base and get all we can also use get , filter or  get_object_or_404
-    #posts = Post.objects.filter(status=1) # it means if post was published then we display it to screen other wise if status=0 it not gonna show those since they are not published
-    #context = {'posts':posts} # use context and use a variable 'posts' and equal to our posts and then we use it inside the template for display
-    return render(request,"test.html")
 

@@ -17,7 +17,6 @@ class Post(models.Model):
     content = models.TextField()
     category = models.ManyToManyField(Category)
     #category -> need a category Model to relate to posts for the time we want to show posts have same categorys
-    #image
     #tag -> need tag Model Like category
     counted_views = models.IntegerField(default=0) # after making database if we dont give a default value , an error gonna accour
     status = models.BooleanField(default=False) #status bolean -> for publishing if true  published if not true not published and we can use it to show only published posts
