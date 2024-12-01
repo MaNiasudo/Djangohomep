@@ -13,8 +13,8 @@ def blog_single(request,pid):
     context = {'post':post}
     return render(request, "blog/blog-single.html", context)
 
-def test(request,pid): #we can use pid to take only a single paramether out for example 1 post for display instead of taking everything out
-    posts = get_object_or_404(Post,id=pid,status=1) # Query to data base and get all we can also use get , filter or  get_object_or_404
+def test(request): #we can use pid to take only a single paramether out for example 1 post for display instead of taking everything out
+   # posts = get_object_or_404(Post,id=pid,status=1) # Query to data base and get all we can also use get , filter or  get_object_or_404
     #posts = Post.objects.filter(status=1) # it means if post was published then we display it to screen other wise if status=0 it not gonna show those since they are not published
-    context = {'posts':posts} # use context and use a variable 'posts' and equal to our posts and then we use it inside the template for display
-    return render(request,"test.html" , context)
+    #context = {'posts':posts} # use context and use a variable 'posts' and equal to our posts and then we use it inside the template for display
+    return render(request,"test.html")

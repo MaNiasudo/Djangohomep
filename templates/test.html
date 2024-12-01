@@ -1,3 +1,4 @@
+{% load blog_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,9 +7,8 @@
     <title>Dtest</title>
   </head>
   <body>
-    <p>{{posts.id}}</p>
-    <h2>{{posts.title}}</h2>
-    <p>{{posts.content}}</p>
-    <small>{{posts.published_date}}</small>
+    <p>Posts:</p>
+    <!-- prettier-ignore -->
+    {% latestposts %}
   </body>
 </html>
