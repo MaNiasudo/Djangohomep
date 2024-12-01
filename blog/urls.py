@@ -5,7 +5,7 @@ app_name = 'blog' #This is for specifying our routes when we call them inside te
 
 urlpatterns = [
     path("", blog_home , name="blog-home"),
-    path("single/", blog_single , name="blog-single"),
-    path('test/',test,name='test')
+    path("<int:pid>", blog_single , name="single"), # we want to use id=pid to get redirected to actuall post page , and we can {% url 'blog:single' pid=post.id %} do this in our template to render pages
+    #path('test/post-<int:pid>/',test,name='test')
    
 ]

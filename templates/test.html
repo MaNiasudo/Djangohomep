@@ -6,13 +6,9 @@
     <title>Dtest</title>
   </head>
   <body>
-    {% for post in posts %}
-    <td>
-      <li><h2>{{post.id}} -</h2></li>
-      <li><h1>{{post.title}}</h1></li>
-      <li>{{post.content}}</li>
-      <li><small>{{post.published_date}}</small></li>
-    </td>
-    {% endfor %}
+    <p>{{posts.id}}</p>
+    <h2>{{posts.title}}</h2>
+    <p>{{posts.content}}</p>
+    <small>{{posts.published_date}}</small>
   </body>
 </html>
