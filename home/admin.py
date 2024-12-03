@@ -10,3 +10,4 @@ class ContactAdmin(admin.ModelAdmin):
     date_hierarchy = "created_date"
 
 admin.site.register(Contact, ContactAdmin)# If dont add the ContactAdmin class here we not gonna see it on the admin page
+admin.site.register(Newsletter)

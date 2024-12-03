@@ -2,20 +2,22 @@ from django.shortcuts import render , redirect , get_object_or_404
 from blog.models import Post
 from django.core.paginator import Paginator , EmptyPage , PageNotAnInteger
 
-def blog_home(request,cat_name=None,author_username=None):
+def blog_home(request,cat_name=None,author_username=None,tag_name=None):
     posts = Post.objects.filter(status=1)
     if cat_name:
         posts = posts.filter(category__name=cat_name) # We can have 2 path in same func and use and if to call each 
     if author_username:
         posts = posts.filter(author__username=author_username) # and if we wanted to have more arguments we just add more  the author relating to our User Model
-    posts = Paginator(posts,3)
+    if tag_name:
+        posts = posts.filter(tags__name__in=[tag_name])
+    posts = Paginator(posts,3) # -> we using paginator here we get for example 10 posts az input and we ask for 3 post per pages
     try:
         page_number = request.GET.get('page')
-        posts = posts.get_page(page_number)
+        posts = posts.get_page(page_number) # we use get page to take us to that page so if post is 1 we go on 1 and if its 3 we go on page 3 if it exists
     except PageNotAnInteger:
-        posts = posts.get_page(1)
+        posts = posts.get_page(1) # And this take us to page num 1 if we gave it wrong input 
     except EmptyPage:
-        posts = posts.get_page(1)
+        posts = posts.get_page(1) # Same here 
 
     context = {'posts':posts}
     return render(request, "blog/blog-home.html",context)

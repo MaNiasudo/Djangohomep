@@ -37,9 +37,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize', 
+    'django_extensions', 
+    'django.contrib.sites', # This is site frame work that we need for sitemap
+    'django.contrib.sitemaps', #For using this need to active sites before it
+    'robots', # We use this to specify that bots don't be able to index everything www.example.com/robots.txt
+    'taggit',
     'home.apps.HomeConfig',
     'blog.apps.BlogConfig',
 ]
+
+SITE_ID = 2
+
+ROBOTS_USE_HOST = False
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

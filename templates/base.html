@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %}{% load humanize %}
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
   <head>
@@ -79,6 +79,18 @@
       </div>
     </header>
     <!-- #header -->
+      {% if messages %}
+      <div class="alert alert-success" role="alert">
+        <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        </ul>
+{% endif %}
     {% block content %} {% endblock %}
     <!-- start footer Area -->
     <footer class="footer-area section-gap">
@@ -125,16 +137,16 @@
                 For business professionals caught between high OEM price and
                 mediocre print and graphic output.
               </p>
-              <div id="mc_embed_signup">
+              <div>
                 <form
-                  target="_blank"
-                  action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                  method="get"
+                  action="{% url 'website:newsletter' %}"
+                  method="post"
                   class="subscription relative"
                 >
+                  {% csrf_token %}
                   <div class="input-group d-flex flex-row">
                     <input
-                      name="EMAIL"
+                      name="email"
                       placeholder="Email Address"
                       onfocus="this.placeholder = ''"
                       onblur="this.placeholder = 'Email Address '"
