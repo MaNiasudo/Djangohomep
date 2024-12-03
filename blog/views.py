@@ -1,5 +1,5 @@
 from django.shortcuts import render , redirect , get_object_or_404
-from blog.models import Post
+from blog.models import Post , Comment
 from django.core.paginator import Paginator , EmptyPage , PageNotAnInteger
 
 def blog_home(request,cat_name=None,author_username=None,tag_name=None):
@@ -9,7 +9,7 @@ def blog_home(request,cat_name=None,author_username=None,tag_name=None):
     if author_username:
         posts = posts.filter(author__username=author_username) # and if we wanted to have more arguments we just add more  the author relating to our User Model
     if tag_name:
-        posts = posts.filter(tags__name__in=[tag_name])
+        posts = posts.filter(tags__name__in=[tag_name]) # We use taggit here and we need to do it diffrently than category
     posts = Paginator(posts,3) # -> we using paginator here we get for example 10 posts az input and we ask for 3 post per pages
     try:
         page_number = request.GET.get('page')
@@ -24,7 +24,8 @@ def blog_home(request,cat_name=None,author_username=None,tag_name=None):
 
 def blog_single(request,pid):
     post = get_object_or_404(Post,id=pid,status=1)# with status = 1 users can only access to published posts  
-    context = {'post':post}
+    comments = Comment.objects.filter(post=post.id,approved=1).order_by('-created_date')
+    context = {'post':post,'comments':comments}
     return render(request, "blog/blog-single.html", context)
  
 def blog_search(request):

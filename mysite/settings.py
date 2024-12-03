@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'multi_captcha_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps', #For using this need to active sites before it
     'robots', # We use this to specify that bots don't be able to index everything www.example.com/robots.txt
     'taggit',
+    'captcha',
+    'django_summernote',
     'home.apps.HomeConfig',
     'blog.apps.BlogConfig',
 ]
@@ -50,6 +53,11 @@ INSTALLED_APPS = [
 SITE_ID = 2
 
 ROBOTS_USE_HOST = False
+
+
+MULTI_CAPTCHA_ADMIN = {
+    'engine': 'simple-captcha',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
