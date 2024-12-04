@@ -1,6 +1,8 @@
-from django.shortcuts import render , redirect , get_object_or_404
+from django.shortcuts import render , redirect , get_object_or_404 
 from blog.models import Post , Comment
 from django.core.paginator import Paginator , EmptyPage , PageNotAnInteger
+from blog.forms import CommentForm
+from django.contrib import messages
 
 def blog_home(request,cat_name=None,author_username=None,tag_name=None):
     posts = Post.objects.filter(status=1)
@@ -23,8 +25,14 @@ def blog_home(request,cat_name=None,author_username=None,tag_name=None):
     return render(request, "blog/blog-home.html",context)
 
 def blog_single(request,pid):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+           form.save()
+        messages.success(request, "Your Message Sended")
     post = get_object_or_404(Post,id=pid,status=1)# with status = 1 users can only access to published posts  
     comments = Comment.objects.filter(post=post.id,approved=1).order_by('-created_date')
+    form = CommentForm()
     context = {'post':post,'comments':comments}
     return render(request, "blog/blog-single.html", context)
  
@@ -35,9 +43,6 @@ def blog_search(request):
             posts= posts.filter(content__contains=s)
     context = {'posts':posts}
     return render(request, "blog/blog-home.html",context)
-
-
-
 
 
 
